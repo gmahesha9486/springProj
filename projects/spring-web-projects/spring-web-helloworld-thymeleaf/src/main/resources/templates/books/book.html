@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cities</title>
+</head>
+<body>
+
+		Content of book.html file.
+		
+		Title is <p th:text="${title}">Test</p>
+		
+		<table>
+
+		    <tr>
+		        <th>Id</th>
+		    </tr>
+
+		    <tr th:each="city : ${cities}">
+		        <td th:text="${city}">id</td>
+		         
+		    </tr>
+		 </table>
+		    
+		 
+
+		 
+</body>
+
+</html>

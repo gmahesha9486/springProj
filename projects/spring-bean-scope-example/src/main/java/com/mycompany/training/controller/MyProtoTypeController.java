@@ -1,0 +1,20 @@
+package com.mycompany.training.controller;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+@Controller
+@Scope(value="prototype")
+public class MyProtoTypeController {
+
+	private String name;
+	 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+}
