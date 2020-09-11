@@ -1,0 +1,69 @@
+•	Introduction to NoSQL
+•	Introduction to MongoDB
+•	Overview of MongoDB
+•	MongoDB vs SQL Databases
+•	Advantages of MongoDB
+•	When to go for MongoDB
+•	MongoDB Installation
+•	Datatypes in MongoDB
+•	Database Create and Drop
+•	Collection Create and Drop
+•	CRUD Operations
+•	Aggregation Functions
+•	Indexing
+•	Sorting Records
+•	Data Relationships
+•	Data Modelling in MongoDB
+•	Sharding
+•	MongoDB Java Integration
+•	Insertion
+•	Updation
+•	Retrieve and Delete
+
+=========================================
+Take collections from Mongo cluster
+solarsystem
+
+
+
+
+Teach these things
+Using a Cluster deployed in Atlas
+Using compass to access the cluster.
+
+-------------
+MongoD Tools Overview
+MongoDB Atlas, MongoDB Compass, and the Mongo Shell.
+
+
+MongoDB Atlas 
+is a platform that provides an interface to manage and deploy MongoDB across cloud providers and regions.
+It was built to launch and manage your deployments for you, which simplifies the operational overhead of running a deployment.
+This type of offering is called database as a service. What that means is that Atlas helps you easily setup and manage your database from your Atlas account on the web.
+There are multiple tiers of Atlas subscriptions. Also it supports free tier subscription to set up a database, view and modify data.
+The free tier allows you to experiment with the platform at no cost to you.
+
+
+Compass.
+Compass provides a graphical user interface that allows you to explore the data in your database.
+It is a great tool to get a quick view of the shape and state of your data, as well as test out MongoDB features 
+as you are learning about the database and its functionality.
+You can use Compass to optimize query performance and manage indexes, among other things.
+
+
+Mongo Shell
+which is an interactive JavaScript interface to MongoDB.
+The Mongo Shell is great for playing around with all the features that the database has to offer, 
+and really learning about MongoDB query language and functionality. 
+
+------------------------------------
+MongoDB Installation
+
+https://university.mongodb.com/mercury/M001/2020_September_8/chapter/Chapter_0_Setup/lesson/5963b30cc1da5a32116dc5bb/lecture
+
+----------------------------------------
+cluster0-shard-00-00-jxeqq.mongodb.net
+cluster0-shard-00-01-jxeqq.mongodb.net
+cluster0-shard-00-02-jxeqq.mongodb.net
+
+

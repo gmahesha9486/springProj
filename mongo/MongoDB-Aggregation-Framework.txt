@@ -1,0 +1,116 @@
+
+Aggregation Functions
+
+Aggregation operations process data records and return computed results.
+Aggregation operations group values from multiple documents together, and can perform a variety of operations on the grouped data 
+to return a single result. 
+ 
+MongoDB provides three ways to perform aggregation: 
+Aggregation pipeline
+Map-reduce function
+Single purpose aggregation methods.
+
+Pipeline
+Pipelines can be thought of as a conveyor belt in a factory.
+Along the line, there are different assembly stations.
+These assembly stations are stages.
+
+Depending on what we want to accomplish, we may have only one stage, or we may have many stages.
+Pipelines work like this.
+
+Documents enter our pipeline and begin to flow into our first stage. This stage is called $match
+Next, they flow through our pipeline and enter the second stage. we'll call this stage $project.
+We can transform our data in almost any way we desire.
+ 
+3rd stage represents one of the many powerful analysis stages available, and it is called $group.
+Here, we have configured the stage to gather all of the documents that are flowing into it and produce a single document
+that gives us the desired result.
+
+
+At the most basic level, they are a composition of stages, from one to many, that we can arrange and configure in almost any way we like.
+The aggregation framework provides many stages to allow us to filter and transform our data.
+All we have to do is compose the pipeline.
+
+-------------------------------
+
+Structure and Syntax of the aggregation framework. 
+
+The aggregation framework has a simple and reliable structure and repeatable syntax.
+Pipelines may contain one or more stages.Each stage is a JSON object of key value pairs.With only a few exceptions, we can have as many stages as we like.
+
+Additionally, options may be passed in. 
+For example, specifying whether to allow disk use for large aggregations, or to view the explain plan of the aggregation 
+to see whether it is using indexes, or if the server optimized the pipeline.
+
+db.userColl.aggregate([{stage 1}, { stage 2}, {...stage n}], {options})
+
+
+Let's take a look at a very simple, but very real pipeline and discuss the syntax.
+
+db.solarSystem.aggregate([{
+  "$match": {
+    "atmosphericComposition": { "$in": [/O2/] },
+    "meanTemperature": { $gte: -40, "$lte": 40 }
+  }
+}, {
+  "$project": {
+    "_id": 0,
+    "name": 1,
+    "hasMoons": { "$gt": ["$numberOfMoons", 0] }
+  }
+}], { "allowDiskUse": true});
+
+
+Here, we have a match stage that checks whether the atmoshperic composition contains oxygen or not.
+And if the mean temperature falls within this range.
+
+Then, we have a project stage that reshapes the document and calculates the new value.
+
+Lastly, there is options object.
+Each stage is composed of either operators or expressions.
+Make sure you bookmark the Aggregation Pipeline Quick Reference page :  https://docs.mongodb.com/manual/meta/aggregation-quick-reference/
+ 
+----------------------- 
+So what's an operator?
+
+when we say operators, we mean either query operators or aggregation stages.
+In this example, $match and $project are aggregation operators, and $in, $gte, and $lte, are query operators.
+
+As a general rule, operators always appear in the key position of a document.
+$match is a little special and we'll learn about it later.
+
+What's an expression?
+Expressions act a lot like functions. We provide arguments and they provide a computed output.
+And just like functions, expressions can be composed to form powerful new data transformations.
+MongoDB provides expressions for working with and producing values for many types of values.
+In the project stage, $gt is an expression. And its arguments are supplied in ths array.
+
+This $number of moons, surrounded by the quotes, is also an expression that you'll learn about in a moment.
+An easy way to remember how to use expressions is that it will always appear in a value position.
+
+Output:
+ 
+ 
+ 
+Field Path: "$fieldname" ("$numberOfMoons")
+System Variable: "$$UPPERCASE" ("$$CURRENT")
+User Variable: "$$foo"
+
+
+The first is a field path expression and it's used to access the value of a field in the document,
+like number of moves in the first example.
+The second, with two dollar signs followed by an uppercase word, is a system level variable.
+$current refers to the current document.
+
+The last with two dollar signs followed by a lowercase word is a user variable.
+expressions let us temporarily bind a value to a name, or provide us a special name, to access some data.
+
+------------------
+The aggregation framework structure and syntax Rules. 
+
+Pipelines are always an array of one or more stages.
+Stages are composed of one or more aggregation operators or expressions.
+	Expressions may take a single argument or an array of arguments. This is expression dependent.
+	
+-----------------------------------------
+Links

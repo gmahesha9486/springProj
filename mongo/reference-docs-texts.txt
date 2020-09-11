@@ -1,0 +1,41 @@
+In MongoDB, data is stored as BSON documents that are composed of field value pairs, 
+where BSON is a binary representation of JSON documents.
+Since BSON is not human-readable, we will stick with JSON in our examples throughout this course.
+
+
+So how does a document like that look?
+
+Keeping with the standard JSON notation, we have an open curly bracket indicating the beginning of a document, 
+followed by several field value pairs separated by commas.
+Each value can be of any BSON data type, which in this case are a string, an integer, another string, and an array.
+
+With MongoDB, a document is a collection of attributes for an object.
+If you're coming from SQL, a document is like a row in the table that has been joined with other relevant rows from other tables.
+You have a field and its assigned value, just like each column in a row has a value.
+
+ 
+Instead of having to query multiple tables of related data and assembling it all together, 
+you can keep your related data in a single document and pull it all down using a single query.
+
+
+Since MongoDB documents support a flexible structure, 
+you can use a document to represent an entire object rather than having to break up the data across multiple records 
+as you would have to do with the relational database.
+
+The exact structure of a document-- all the fields, values, and embedded documents-- represent the schema of a document.
+
+MongoDB documents have a flexible schema in that you're not required to make complicated changes to a collection's metadata to add or remove the fields in a documents.
+============================================================
+
+MongoDB stores data as documents.
+
+Document fields can be values, embedded documents, or arrays of values and documents.
+
+MongoDB is a flexible schema database.
+
+============================================================
+Atlas
+Atlas is MongoDB's cloud-hosting service.
+
+============================================================
+

@@ -1,0 +1,458 @@
+•	Introduction to NoSQL
+•	Introduction to MongoDB
+•	Overview of MongoDB
+•	MongoDB vs SQL Databases
+•	Advantages of MongoDB
+•	When to go for MongoDB
+•	Data Modelling in MongoDB
+•	Is MongoDB really Schemaless?
+•	MongoDB Installation
+•	Datatypes in MongoDB
+•	Database Create and Drop
+•	Collection Create and Drop
+•	CRUD Operations
+•	Data Relationships   
+•	Indexing
+•	Sorting Records
+•	Aggregation Functions
+•	Data Backup and Restoration
+•	Sharding
+•	MongoDB Java Integration
+•	Insertion
+•	Updation
+•	Retrieve and Delete
+
+
+Query Operators in MongoDB
+
+https://www.studytonight.com/mongodb/relationships-in-mongodb
+https://docs.mongodb.com/manual/tutorial/model-referenced-one-to-many-relationships-between-documents/
+
+
+
+MongoDB compass 1.18+
+	for connection to the M320 MongoDB Atlas center.
+	
+	
+=======================================================
+
+Understanding JSON
+
+JSON (JavaScript Object Notation)
+It is a lightweight text-based open standard designed for human-readable data interchange. 
+JSON is a syntax for storing and exchanging data.
+JSON is an easier-to-use alternative to XML.
+
+{"name":"John Johnson","street":"Oslo West 16","phone":"555 1234567"}
+
+{"employees":[
+    {"firstName":"John", "lastName":"Doe"}, 
+    {"firstName":"Anna", "lastName":"Smith"}, 
+    {"firstName":"Peter","lastName":"Jones"}
+]}
+
+
+======================================================
+
+Mongodb terminologies v/s Relational Database.
+
+Collection : Similar to RDBMS table
+
+Document : RDBMS record or row.
+
+Field : RDBMS column.
+
+-------------------------------------
+
+Connecting to mongodb using command prompt.
+open cmd. type mongod
+
+
+open other cmd. type mongo
+
+Display the databases
+show dbs
+
+use the specific database
+use <dbName>
+
+show all the collections
+show collections
+
+use specific collection
+use <collectionName>
+-----------------------------
+
+MongoDB Data types
+
+MongoDB supports many datatypes. Some of them are
+
+String - String is the most commonly used datatype. It is used to store data. A string must be UTF 8 valid in mongodb.
+Integer - Integer is used to store the numeric value. It can be 32 bit or 64 bit depending on the server you are using.
+Boolean - This datatype is used to store boolean values. It just shows YES/NO values.
+Double - Double datatype stores floating point values.
+Min/Max Keys - This datatype compare a value against the lowest and highest bson elements.
+Arrays - This datatype is used to store a list or multiple values into a single key.
+Object - Object datatype is used for embedded documents.
+Null - It is used to store null values.
+Symbol - It is generally used for languages that use a specific type.
+Date - This datatype stores the current date or time in unix time format. It makes you possible to specify your own date time by creating object of date and pass the value of date, month, year into it.
+
+=======================================================
+
+Task details
+
+Creating and adding data to the collection
+
+If you are creating the mongo collection and database for the first time, then use below commands
+use mydb   
+#you can change mydb to any name. If this database is not there it will create after adding the collection. So dont worry.
+
+Create a collection using the command.
+db.employee.insert({
+"emp_id":"101","emp_name":"Mahesh","emp_designation":"Developer","emp_campus":"Global"
+})
+
+Note: db is a global variable . It is the connection and context to the database.
+
+If its saved properly, you can see the data by running the command.
+db.employee.find()
+
+To see the data in a pretty way,
+db.employee.find().pretty()
+
+To count the rows(Document)
+db.employee.count()
+
+Adding multiple documents to employee collection
+db.employee.insert([
+{"emp_id":"102","emp_name":"Rajesh","emp_designation":"TL","emp_campus":"Whitefield"},
+{"emp_id":"103","emp_name":"Suresh","emp_designation":"Tester","emp_campus":"Whitefield", "certification":"Test Lead"},
+{"emp_id":"104","emp_name":"Swati","emp_designation":"Developer","emp_campus":"Global"}])
+
+Note: 
+_id in a collection is primary key. Its value type is: ObjectId and its unique. Even we can provide value to _id, but it should be unique.
+
+
+
+Wanted to import a json file and save it in mongodb.
+Syntax: mongoimport -d <DatabseName> -c <CollectionName> <FileName>
+
+mongoimport -d mydb -c books books_details.json
+
+Saving different data type in MongoDB
+
+db.student.insert(
+{
+	"stud_id":"301",
+	"stud_name":"Suresh",
+	"interests":["cricket","football","hockey"]
+}
+)
+-------------------------------------------------------
+Sample insert statements
+
+db.employee_det.insert([
+{"name":"John Johnson","street":"Oslo West 16","phone":"555 1234567"},
+{"name":"Suresh","street":"Banglore","phone":"555 1234567"},
+{"name":"Goopi","street":"Manglore","phone":"11 1234567"}
+]);
+
+db.triangle.insert([
+{"x":1,"y":4,"z":2},
+{"x":21,"y":14,"z":12},
+{"x":11,"y":34,"z":21}
+]);
+
+db.employee_det.insert(
+{"name":"Akash","street":"Oslo West 16","phone":"555 1234567"});
+
+To see the content of collection named: employee_det
+db.employee_det.find()
+
+To see the content of collection named: employee_det in a pretty way
+db.employee_det.find().pretty()
+
+To count the rows(Document)
+db.employee_det.count()
+
+------------------------------------
+
+===================================
+
+CRUD Operations
+
+			Create Operations
+insert():
+Used to insert a document or documents into a collection. If the collection does not exist, then insert() will create the 
+collection and then insert the specified documents.
+
+Note: Deprecated in newer versions of mongo engine
+
+Syntax
+db.collection.insert(<document or array of documents>,
+{
+writeConcern: <document>,
+ordered: <boolean>
+}
+)
+
+Parameter
+
+<document>: The document or record that is to be stored in the database
+writeConcern: Optional.
+ordered: Optional. Can be set to true or false.
+Return Value: A WriteResult object or BulkWriteResult object for single or bulk inserts respectively.
+
+If ordered is set to true and any document reports an error then the remaining documents are not inserted. If ordered is set to false then remaining documents are inserted even if an error occurs.
+
+-------------
+insertOne() : Used to insert a single document or record into the database. 
+If the collection does not exist, then insertOne() method creates the collection first and then inserts the specified document.
+
+Syntax
+db.collection.insertOne(<document>,
+{
+writeConcern: <document>
+}
+)
+
+db.emp_test.insertOne({"name":"John Johnson","street":"Oslo West 16","phone":"555 1234567"});
+
+--------------------
+db.collection.insertMany() 
+inserts multiple documents into a collection 
+
+Syntax
+db.collection.insertMany([ <document 1>, <document 2>, … ],
+{
+writeConcern: <document>,
+ordered: <boolean>
+}
+)
+
+
+If ordered is set to true and any document reports an error then the remaining documents are not inserted. If ordered is set to false then remaining documents are inserted even if an error occurs.
+Default is ordered insert. 
+
+------------------------------------------
+		Read Operation
+		
+db.movies.insertMany([
+{"name":"ABCD","duration":140,"category":["comedy","action"], "language":"en", "year":2019},
+{"name":"EFGH","duration":120,"category":["drama","action"], "language":"fr","year":2019},
+{"name":"Hello","duration":90,"category":["drama","action","comedy"], "language":"fr","year":2018},
+{"name":"IJKL","duration":170,"category":["fiction","action"], "language":"en","year":2019}
+]);
+		
+db.movies.find({"language":"fr"})
+db.movies.find({"language":"fr"}).pretty()
+
+db.movies.find({"language":"fr", "year":2019})		
+		
+Fetch inner document.
+db.employee_test.find({"address.state":"Karnataka"})
+
+Get the count of result document.
+db.movies.find({"language":"fr"}).count()
+
+------------------------
+How i obtain only few columns instead of all ?
+Ans: Projections
+Projections reduce network overhead and processing requirements by limiting the fields that are returned in results documents.
+By default, MongoDB returns all fields in all matching documents for queries.
+You can define a projection as the second argument to the find method.
+
+To display only name field
+db.movies.find({},{name:1})
+
+db.movies.find({"language":"fr"},{name:1})
+
+If you dont want to see the _id field, use
+db.movies.find({},{name:1, _id:0})
+
+-------------------------------------
+Query on array
+collection name: inventory
+
+Match an Array
+To specify equality condition on an array, use the query document { <field>: <value> } where <value> is the exact array to match, including the order of the elements.
+
+The following example queries for all documents where the field tags value is an array with exactly two elements, "red" and "blank", in the specified order:
+db.inventory.find( { tags: ["red", "blank"] } )
+
+If, instead, you wish to find an array that contains both the elements "red" and "blank", without regard to order or other elements in the array, use the $all operator:
+db.inventory.find( { tags: { $all: ["red", "blank"] } } )
+
+
+Query an Array for an Element
+To query if the array field contains at least one element with the specified value, use the filter { <field>: <value> } where <value> is the element value.
+The following example queries for all documents where tags is an array that contains the string "red" as one of its elements:
+db.inventory.find( { tags: "red" } )
+
+-------------------
+Query an Array of Embedded Documents
+collection: inventory_complex
+
+The following example selects all documents where an element in the instock array matches the specified document:
+db.inventory_complex.find( { "instock": { warehouse: "A", qty: 5 } } )
+
+Equality matches on the whole embedded/nested document require an exact match of the specified document, including the field order. For example, the following query does not match any documents in the inventory collection:
+db.inventory_complex.find( { "instock": { qty: 5, warehouse: "A" } } )
+
+-----------------------------
+Specify a Query Condition on a Field in an Array of Documents
+
+Specify a Query Condition on a Field Embedded in an Array of Documents
+If you do not know the index position of the document nested in the array, concatenate the name of the array field, with a dot (.) and the name of the field in the nested document.
+
+The following example selects all documents where the instock array has at least one embedded document that contains the field qty whose value is less than or equal to 20:
+db.inventory_complex.find( { 'instock.qty': { $lte: 20 } } )
+
+
+
+
+
+
+-------------------------
+		Update documents
+
+----------------------------
+		Delete documents	
+-------------------
+delete whole collection
+delete a database.		
+		
+	
+
+===============================
+Query List
+
+JSON v/s BSON
+What is schema ?
+Cardinality
+
+==============================
+Answers
+
+Scalar Fields : A scalar field is a field whose value is neither a document nor an array; 
+e.g. a field whose value is a string or an integer is a scalar field.
+
+
+=====================================
+MongoDB university
+
+http://m001basics.blogspot.com/2018/05/mongodb-university-m001-mongodb-basics.html
+
+
+
+====================================
+Reference Documents from mongo university.  M001
+
+Introduction to Query Operators
+
+The MongoDB query language provides extensive support for filtering documents of all shapes and sizes, even those with complex schemas We'll look at the variety of query operators available and how to use them.
+Note that because all four types of CRUD operations-- create, read, update, and delete-- require a filter, our query operators may be used in your filters for any of the query language methods we have discussed.
+
+Comparison Operators.
+$gt
+$lt
+
+https://docs.mongodb.com/manual/reference/operator/query-comparison/
+------------------------------
+Element Operators
+It is possible to have the same field in the collection have a different value type from one document to another.
+The MongoDB query language provides operators that enable us to handle both of these situations.
+They're called $exists and $type.
+
+https://docs.mongodb.com/manual/reference/operator/query-element/
+
+------------------------------
+Logical Operators
+https://docs.mongodb.com/manual/reference/operator/query-logical/
+
+--------------------------
+Array Operatots
+https://docs.mongodb.com/manual/reference/operator/query-array/
+
+------------
+Regex Operators
+https://docs.mongodb.com/manual/reference/operator/query/regex/
+
+*******************************************
+Data Relationships  - https://university.mongodb.com/mercury/M320/2020_June_2/chapter/Chapter_1_Introduction_to_Data_Modeling/lesson/5a5e55e235ccb4923f0cc97c/lecture
+
+Data Modelling
+
+MongoDB Document Model
+
+MongoDB Data Hierarchy
+Database - Top level
+Collections
+Document
+
+-----------
+Relationships with MongoDB
+
+NoSQL Databases are also relational.
+
+If you look at any schema implementation in MongoDB, or any other database, you can observe objects, referred to as entities.
+The relationships represent all the entities and the other piece of information are related to each other.
+For example, a customer name and its customer ID have a one to one relationship.
+We often group this type of relationship in a single entity.
+
+The relationship between a customer and the invoice sent to them is a one to many relationship, as one customer has many invoice, but each invoice only belong to one customer.
+And the invoices and their products have a many to many relationship, as the invoice referred to many products, and a product is likely listed in many invoices.
+
+
+Types and Cardinality of Relationships
+
+Common Relationships
+one-to-one(1-1)
+one-to-many(1-N)
+Many-to-many(N-N)
+
+The relation between a customer name and their customer_id is an example of a one-to-one relationship.
+The one-to-one relations are often represented by grouping the two pieces of data in the same entity or document.
+
+Invoices associated with the customer are an example of a one-to-many relationship.
+A customer has many invoices, and each of these invoices is only associated with one customer.
+
+Finally, an invoice may contain many products, and each of these products is likely present in more invoices 
+than just the one that we were looking at. This is called a many-to-many relationship.
+
+Movies collection:
+title, actors(array), financials.
+
+Reviews. This will be a separate collection. Since 1 moview can have multiple reviews.
+date, publisher, stars.  
+
+------------------
+One-to-One relations
+User name, DOB, email can be kept in single collection.
+In some cases, we can keep 1-to-1 details in multiple collection.
+example: Stores has -> id, store_id, name, address, city, state
+Store_details -> id, store_id(Foreign key), description, services, manger(street,city,zip), staff(Array)
+
+
+One-to-Many Representations
+
+One user can have multiple credit cards.
+One post can have multiple comments.
+
+What option do you have?
+1. Embed
+	a: in the "one side"  (keep all the credit card details in user collection)
+	b: in the "many" side	
+2: Reference
+	a: in the "one" side
+	b: in the "many" side
+
+
+Many-to-Many relations
+
+==============================================
+
+MongoDB Indexes
+
+

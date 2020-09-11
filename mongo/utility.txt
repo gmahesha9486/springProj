@@ -1,0 +1,112 @@
+db.movies.insertMany([
+{"name":"ABCD","duration":140,"category":["comedy","action"], "language":"en", "year":2019},
+{"name":"EFGH","duration":120,"category":["drama","action"], "language":"fr","year":2019},
+{"name":"Hello","duration":90,"category":["drama","action","comedy"], "language":"fr","year":2018},
+{"name":"IJKL","duration":170,"category":["fiction","action"], "language":"en","year":2019}
+]);
+
+
+
+db.employee_test.insert([
+{"name":"John Johnson","street":"Oslo West 16","phone":"555 1234567", "address":{"street":"1st cross","city":"Kochin","state":"Kerala"}},
+{"name":"Suresh","street":"Banglore","phone":"555 1234567", "address":{"street":"3rd cross","city":"CV Raman","state":"Karnataka"}},
+{"name":"Goopi","street":"Manglore","phone":"11 1234567", "address":{"street":"4th cross","city":"Hyderabad","state":"Telangana"}}
+]);
+
+ratings: [ { score: 2, by: "mn" }, { score: 9, by: "anon" } ]
+
+db.inventory.insertMany([
+   { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [ 14, 21 ] },
+   { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [ 14, 21 ] },
+   { item: "paper", qty: 100, tags: ["red", "blank", "plain"], dim_cm: [ 14, 21 ] },
+   { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [ 22.85, 30 ] },
+   { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [ 10, 15.25 ] }
+]);
+
+
+db.inventory_complex.insertMany( [
+   { item: "journal", instock: [ { warehouse: "A", qty: 5 }, { warehouse: "C", qty: 15 } ] },
+   { item: "notebook", instock: [ { warehouse: "C", qty: 5 } ] },
+   { item: "paper", instock: [ { warehouse: "A", qty: 60 }, { warehouse: "B", qty: 15 } ] },
+   { item: "planner", instock: [ { warehouse: "A", qty: 40 }, { warehouse: "B", qty: 5 } ] },
+   { item: "postcard", instock: [ { warehouse: "B", qty: 15 }, { warehouse: "C", qty: 35 } ] }
+]);
+
+
+==============================================
+Data Modelling
+
+Embed sample
+{
+	_id: ,
+	Emp_ID: "10025AE336"
+	Personal_details:{
+		First_Name: "Radhika",
+		Last_Name: "Sharma",
+		Date_Of_Birth: "1995-09-26"
+	},
+	Contact: {
+		e-mail: "radhika_sharma.123@gmail.com",
+		phone: "9848022338"
+	},
+	Address: {
+		city: "Hyderabad",
+		Area: "Madapur",
+		State: "Telangana"
+	}
+}
+
+db.emp_embed.insert(
+{
+	"Emp_ID": "10025AE336",
+	"Personal_details":{
+		"First_Name": "Radhika",
+		"Last_Name": "Sharma",
+		"Date_Of_Birth": "1995-09-26"
+	},
+	"Contact": {
+		"e-mail": "radhika_sharma.123@gmail.com",
+		"phone": "9848022338"
+	},
+	"Address": {
+		"city": "Hyderabad",
+		"Area": "Madapur",
+		"State": "Telangana"
+	}
+}
+);
+
+one-to-one : in multiple collections
+
+Employee Details
+db.emp.insert({
+	_id: 101,
+	Emp_ID: "10025AE336"
+})
+
+Personal Details
+db.personal_details.insert({
+	_id: 1,
+	empDocID: 101,
+	First_Name: "Radhika",
+	Last_Name: "Sharma",
+	Date_Of_Birth: "1995-09-26"
+})
+
+Contact
+db.contact.insert({
+	_id: 1,
+	empDocID: 101,
+	"e-mail": "radhika@gmail.com",
+	"phone": "9848022338"
+})
+
+Address
+db.address.insert(
+{
+	_id: 1,
+	empDocID: 101,
+	city: "Hyderabad",
+	Area: "Madapur",
+	State: "Telangana"
+})
