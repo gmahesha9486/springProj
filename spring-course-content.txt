@@ -1,0 +1,267 @@
+Spring Configuration Options
+1: XML Based Configuration
+2: Annotation Based Configuration
+3: Java Based Configuration
+
+
+XML Based Configuration:
+Introduced in Spring framework 2.0
+Common in legacy applications
+Still supported in Spring 5.x
+
+
+Annotation Based Configuration
+Introduced in Spring framework 3
+Picked up via 'Component Scans'
+Refers to class level annotations : @Controller, @Service, @Repository, @Component
+
+
+Java Based Configuration
+Introduced in Spring framework 3.0
+Uses Java Classes to define Spring Beans
+Configuration classes are defined with @Configuration annotation
+Beans are declared with @Bean annotation
+
+
+Spring Bean Scope . video 78
+
+
+Various annotation: 
+https://springframework.guru/spring-framework-annotations/
+
+
+
+
+
+============================================================================
+
+Basics of Spring framework.
+
+Spring makes it easy to create Java enterprise applications. 
+It provides the patterns and structure for your java applications and in the process it handles the common things
+that most developers need to do when they build the java application: 
+	1: Application Context and Dependency Injection : Managing object life cycles and dependencies for the components and services in your code.
+	2: Data Access : Spring comes with various different data access api and mechanism for connectivity, querying and transaction management.
+	3: Spring MVC : It makes you easily create web applications and REST API's using the same Spring application model.
+
+The Spring Framework is divided into modules. Applications can choose which modules they need. 
+At the heart are the modules of the core container, including a configuration model and a dependency injection mechanism. 
+Beyond that, the Spring Framework provides foundational support for different application architectures, 
+including messaging, transactional data and persistence, and web. It also includes the Servlet-based Spring MVC web framework.
+
+As of Spring Framework 5.1, Spring requires JDK 8+
+
+Spring IOC (Inversion Of Control) : 
+Inversion of Control is a generic design principle of software architecture that assists in creating reusable, modular software 
+frameworks that are easy to maintain.
+This is common characteristic of frameworks, IoC manages java objects
+- from instantiation to destruction through its BeanFactory.
+- Java components that are instantiated by the IoC container are called beans, and the IoC container manages a bean's scope, 
+  lifecycle events
+
+In Spring, IoC is achieved through DI(Dependency Injection). By DI, the responsibility of creating objects is shifted from our application 
+code to the Spring container; This phenomenon is called IoC.
+
+Java Bean : In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are 
+called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. 
+Otherwise, a bean is simply one of many objects in your application
+
+Spring is a container of beans. Spring behaves as a factory of beans.
+
+Application Context(Spring Context) :
+The Application Context is Spring's advanced container. 
+It can load bean definitions, wire beans together, and dispense beans upon request.
+It is responsible for managing the life cycle of Spring beans
+
+========================================
+Use of SpringApplication.run(SpringBootDiApplication.class, args);
+Above method bootstraps a spring application as a stand-alone application from the main method. 
+It creates an appropriate ApplicationContext instance and load beans. It also runs embedded Tomcat server in Spring web application.
+
+2: Creation of Spring project template 
+
+===================================
+Dependency Injection
+This is the fundamental feature provide by Spring core framework. Through DI, Spring container lets you inject required objects
+into other objects. This allows loose coupling of components and moves the responsibility of managing the components onto the container.
+Is where a needed dependency is injected by another object.
+
+Types of Dependency Injection
+By class properties - least preferred. Not a best practice. Gives problem while testing.
+Constructor based Injection
+Setter based Injection
+
+================================
+Annotation details
+Adding the annotation on class is to indicate Spring that: this is spring managed bean. Spring has to take care of creating and
+managing the object. 
+There is no difference between the annotation: @Controller, @Service, @Component, @Repository
+@Autowired : It tells spring that need to inject the concerned object into that.
+@Autowired  // This annotation on constructor based injection is optional from Spring 4.2 onwards.
+
+Cover the below annotations
+@SpringBootApplication
+
+Note: At what path spring beans will be auto scanned ?
+
+=========================
+36: Using Qualifiers.
+Teach at the end.
+
+===========================
+Spring bean life cycle
+
+===============================
+ 
+Syllabus
+https://courses.telusko.com/learn/Spring5?tab=3&section=undefined
+https://www.edureka.co/spring-certification-course
+
+Basic explanation
+https://www.edureka.co/blog/what-is-spring-framework/
+https://www.baeldung.com/spring-dependency-injection
+
+
+Spring JDBC Template
+https://mkyong.com/spring-boot/spring-boot-jdbc-examples/
+https://www.journaldev.com/2593/spring-jdbc-example
+https://springframework.guru/using-jdbctemplate-with-spring-boot-and-thymeleaf/
+
+
+
+Spring AOP
+https://www.youtube.com/watch?v=RVvKPP5HyaA
+Telusko
+Durga soft
+
+
+Spring MVC
+
+http://websystique.com/springmvc/spring-4-mvc-helloworld-tutorial-full-example/
+
+https://www.youtube.com/watch?v=xkDBaldNki4
+https://www.youtube.com/watch?v=g2b-NbR48Jo&t=45s
+https://java2blog.com/spring-boot-web-application-example/
+
+Image from  : https://docs.spring.io/spring/docs/3.0.0.M4/spring-framework-reference/html/ch15s02.html
+
+Form handling:
+https://www.codejava.net/frameworks/spring-boot/spring-boot-thymeleaf-form-handling-tutorial#:~:text=You%20see%2C%20handling%20form%20submission,code%20to%20get%20form%20data.
+
+
+All the client request is going to Front Controller(Dispatcher Servlet)
+Class name: org.springframework.web.servlet.DispatcherServlet
+
+Thymeleaf
+It is a Java template engine
+
+
+----------------
+Creation of simple spring boot web application.
+Use Sprint initializer website.
+Add the below dependency in pom.xml file
+
+<dependency>
+    <groupId>org.apache.tomcat.embed</groupId>
+    <artifactId>tomcat-embed-jasper</artifactId>
+    <scope>provided</scope>
+</dependency>
+
+Configure a View Resolver
+We will keep the jsp file in the path: /WEB-INF/jsp/  So mention below details in application.properties file
+spring.mvc.view.prefix=/WEB-INF/jsp/
+spring.mvc.view.suffix=.jsp
+
+Create a controller class: TestController
+
+Create a folder webapp under /src/main 
+
+---------------------
+Query
+Use of 
+ModelAndView v/s Model, ModelMap
+autowiring
+spring validation
+@Configuration
+Spring Boot Command Line Runner
+Spring Bean Scope
+
+To see hibernate queries, use
+spring.jpa.show-sql=true
+
+========================
+Images
+
+Spring architecture
+Spring AOP : https://www.javatpoint.com/spring-boot-aop
+
+Login page
+https://dzone.com/articles/creating-a-web-application-with-spring-boot
+
+
+===========================================
+ 
+===========================================================
+
+
+============================
+Spring Boot Command Line Runner
+Is Spring boot specific class.
+
+H2 database
+http://localhost:8080/h2-console
+JDBC url : jdbc:h2:mem:testdb
+
+Make these statement in the application.properties file
+
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.data.jpa.repositories.bootstrap-mode=default
+
+spring.h2.console.enabled=true
+
+===========================================
+
+To get more logs details, use below line in application.properties file
+
+logging.level.root=debug
+
+
+
+
+
+
+=============================
+Project Lombok
+
+MapStruct
+Its a code generator for Java Bean mapping.
+======================================
+Restful web app  : versioning too
+
+https://dzone.com/articles/versioning-restful-services-with-spring-boot
+http://websystique.com/spring-boot/spring-boot-rest-api-example/
+
+
+
+==========================================
+
+Configure MySQL
+
+================================
+
+Spring JDBC
+https://www.springboottutorial.com/spring-boot-and-spring-jdbc-with-h2
+http://zetcode.com/springboot/rowmapper/
+https://www.journaldev.com/2603/spring-transaction-management-jdbc-example
+https://github.com/kishanjavatrainer/SpringBootJdbcTransactionManagement/blob/master/SpringBootJdbcTransactionManagement/src/main/resources/application.properties
+https://www.youtube.com/watch?v=vbI7pPzZjqI
+
+Transaction
+https://www.youtube.com/watch?v=hBO44wKy2zQ
+https://www.youtube.com/watch?v=C5eNBrZ0ze8
+https://www.netjstech.com/2018/08/spring-transaction-management-jdbc-example-using-transactional-annotation.html
+https://dzone.com/articles/bountyspring-transactional-management
+
+
+
+
