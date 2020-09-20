@@ -1,0 +1,154 @@
+https://www.petrikainulainen.net/spring-data-jpa-tutorial/
+
+JPA Data Modelling
+
+
+JPA Entity Relationships
+
+Types of Relationships
+One to One
+One to Many
+Many to One
+Many to Many
+
+
+One to One - @OneToOne
+One entity is related to one other entity.
+
+One to Many - @OneToMany
+One entity is related to many entities.(List, Set, Map, SortedSet, SortedMap)
+
+Many to One - @ManyToOne
+The inverse relationship of One to Many
+
+Many to Many - @ManyToMany
+Many entities are related to many entities.
+Each has a List or Set reference to the other.
+A join table is used to define the relationship.
+
+
+
+Unidirectional v/s Bidirectional
+
+Unidirectional is one-way.
+Mapping is only done one way. One side of the relationship will not know about the other.
+
+Bidirectional is two way.
+Both sides know about each other.
+Generally recommended to use Bidirectional , since you can navigate the object graph in either direction.
+
+
+Owning Side
+The Owning side in the relationship will hold the foreign key in the database
+One to One is the side where the foreign key is specified
+OneToMany and ManyToOne is the ‘Many’ side
+‘mappedBy’ is used to define the field with “owns” the reference of the relationship
+
+------------------------
+Fetch Type
+
+Lazy Fetch Type - Data is not queried until referenced
+• Eager Fetch Type - Data is queried up front
+• Hibernate 5 Supports the JPA 2.1 Fetch Type Defaults
+• JPA 2.1 Fetch Type Defaults:
+• OneToMany - Lazy
+• ManyToOne - Eager
+• ManyToMany - Lazy
+• OneToOne - Eager
+
+
+
+Inheritance
+
+
+
+
+===========================================================
+JPA Cascade Types
+Embeddable Types
+Inheritance
+
+If we delete notes object, we are not going to delete Recipe object. But if we delete Recipe , we are going to delete Notes object.
+
+
+JPA Enumeration
+
+
+**********************************************************************
+
+From In28 Minutes tutor
+
+https://github.com/in28minutes/jpa-with-hibernate
+
+Relationship
+
+courses -> Student
+Course can have multiple students.  Student can enroll for many courses.  This is Many to Many
+Student - Passport.  Student can have 1 passport.  Passport(no) belongs to only one student.
+Course - Review.  Course can have multiple review. 1 Review belongs to single course. One to Many 
+
+
+How to write query using JPA
+1: JPQL
+2: Criteria Query.
+3: Native Query
+
+
+------------------------------
+JPA
+Java Persistence API
+
+Map the Entity(Object) to a row in table.
+Relationship between entities.
+
+Once you define the Entities and relationship, the JPA implementation would take care of identifying the entities and 
+creating the right queries based on the operation you would want to perform.
+So, the job of writing the queries shifts from developer to a framework which is called JPA implementation.
+
+JPA is like an interface. It defines set of annotations, interfaces. Hibernate is the most popular implementation of JPA
+JPA is the standard of doing Object Relational Mapping(ORM). Object is instance of the class. Mapping an object to a relation(table).
+
+EntityManager  : It manages the entities. All the operations that you are performing in a particular session are all stored in
+inside your Entity Manager. ie in PersistenceContext.
+EntityManager is interface to the PersistenceContext. All operations are going through the EntityManager.
+
+
+Schema Update : This is one of the Hibernate feature. When we are using in memory database, Hibernate will automatically creates schema for us.
+So, no need to create table using data.sql, which is present in src/main/resources folder.
+
+Whether you update or insert, you need to use merge method.
+If there is an id, then it will update, or else it will insert.
+
+Get all record from a table.
+TypedQuery<Person> namedQuery = entityManager.createNamedQuery("find_all_persons", Person.class);  
+// Here we just defined the named query.
+We need to define the named query on Entity. Check the line : @NamedQuery(name="find_all_persons",query="select p from Person p") in Person class.
+Above query is nothing but: JPQL  Java Persistence Query Language. JPQL does not use DB, table. It uses the Entities.
+
+------------------------------
+
+JPA and Hibernate in Depth
+
+Create a Project with H2 and Spring boot
+
+
+-------------------------
+Configure application.properties file to enable H2 console and logging.
+
+#This will enale H2 console.
+spring.h2.console.enabled=true   
+
+#Turn statistics on
+spring.jpa.properties.hibernate.generate_statistics=true
+logging.level.org.hibernate.stat=debug
+
+#Show all queries
+spring.jpa.show-sql=true
+
+#format the sql queries.  Dont use in production
+spring.jpa.properties.hibernate.format_sql=true
+
+#If you wanted to see the parameter been sent to the queries. This enabled debugging logging for this package.
+logging.level.org.hibernate.type=trace
+
+
