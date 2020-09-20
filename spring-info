@@ -1,0 +1,150 @@
+Spring Syllabus
+
+1: Basics of Spring
+	What is Spring, Spring Modules
+	Spring Architecture
+	Inversion of Control(IoC)
+	 
+2: Spring Boot
+   Use of Spring Boot project
+   
+
+3: Spring with IDE
+	Use of Spring Initializer
+	Spring application creation
+
+4: Spring Core - IoC
+	Spring Context(Application Context)
+	Dependency Injection
+	Constructor based Injection
+	Setter based Injection
+	
+5: Spring Annotations
+	Stereotype Annotations
+	
+6: Spring Bean
+	Bean Definition
+	Bean Life cycle, Bean scopes 
+	
+7: Spring AOP
+    AOP Introduction
+	AOP Advice
+	AOP PointCuts
+	
+8: Spring + Apache Camel Integration
+	Apache Camel Basics
+    Use Cases
+	Sample integration application
+	
+9: Spring JDBC
+	JDBC Template
+	Row Mapper
+	CRUD Operation
+	Transactions
+
+Spring project using apache camel, Spring JDBC	
+Process file from one camel project and keep the modified file in output folder.
+Process the file from output folder and save the data in db . Use other camel project.
+
+	
+10: Spring JPA
+	ORM Basics
+	JPA
+    Spring Data JPA 	
+	JPA Repository
+	Spring - Hibernate Integration
+	
+11: SpEL 
+	What is SpEL
+	Feature Overview
+	Sample expression evaluation
+	
+12: Spring Web MVC framework
+	Architecture
+	Dispatcher Servlet
+	Controller and View
+	Simple web application
+	Thymeleaf Template
+	Form handling
+	
+13: Spring Restful Web Service
+	RestController
+	RequestMapping
+	Rest API producer, Consumer
+	Versioning 
+	
+==================================
+Spring Course material
+
+1: Basics of Spring
+Setting up your Development Environment.
+Java JDK 1.8 or above . In Command prompt, enter:  javac-version, java-version
+Maven latest version  mvn -v
+Spring framework 5: Released on 2017 (as per Wiki)
+Features of Spring 5 : Mention it.
+
+================================================
+		Queries
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*********************************************************************************************8
+
+
+
+The ApplicationContext Interface
+The ApplicationContext is the central interface within a Spring application that is used for providing 
+configuration information to the application. It implements the BeanFactory interface.
+
+Features:
+Bean instantiation/wiring
+Automatic BeanPostProcessor registration
+Automatic BeanFactoryPostProcessor registration
+Convenient MessageSource access (for i18n)
+ApplicationEvent publication
+It uses eager loading, so every bean instantiate after the ApplicationContext is started up.
+--------------------
+Stereotype 
+service, controller, component
+
+------------------------
+Qualifiers
+
+----------------------
+Spring Profiles
+
+------------------------
+Spring bean life cycle
+
+Aware interfaces : used to access the Spring framework infrastructure.
+
+-------------------------
+
+Queries
+Can you change the bean name dynamically ?
+
+========================================================
+
+
+
+
+
+
+
+
+
