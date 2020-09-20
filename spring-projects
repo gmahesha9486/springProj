@@ -1,0 +1,83 @@
+1: Spring hello world application. Use https://start.spring.io/
+Group: com.mycompany
+Artifact: spring-boot-helloWorld
+Name: spring-boot-helloWorld
+Description: Demo project for Spring Boot
+Package Name: com.mycompany.training
+Location: D:\tutorial\AnsPro\projects\spring-boot-helloWorld
+
+2: Spring Context demo
+Group: com.mycompany
+Artifact: spring-context-demo
+Name: spring-context-demo
+Description: Spring Context Demo
+Package Name: com.mycompany.training	
+Location: D:\tutorial\AnsPro\projects\spring-context-demo 	
+
+
+3: DI without Spring
+Group: com.mycompany
+Artifact: spring-boot-without-di
+Name: spring-boot-without-di
+Description: Dependency Injection without Spring
+Package Name: com.mycompany.training	
+Location: D:\tutorial\AnsPro\projects\spring-boot-without-di
+
+
+4: Dependency Injection sample application.
+Group: com.mycompany
+Artifact: spring-boot-di
+Name: spring-boot-di
+Description: Spring Boot Dependency Injection
+Package Name: com.mycompany.training	
+Location: D:\tutorial\AnsPro\projects\spring-boot-di	
+
+5: Spring Qualifiers
+
+
+6: Spring AOP
+Group: com.mycompany
+Artifact: spring-aop
+Name: spring-aop
+Description: Spring AOP Example
+Package Name: com.mycompany.training	
+Location: D:\tutorial\AnsPro\projects\spring-aop
+
+
+7: Spring jdbc
+Group: com.mycompany
+Artifact: spring-jdbc
+Name: spring-jdbc
+Description: Spring JDBC Example
+Package Name: com.mycompany.training	
+
+8: Spring jdbc-inmemory
+Group: com.mycompany
+Artifact: spring-jdbc-inmemory
+Name: spring-jdbc-inmemory
+Description: Spring JDBC In memory Example
+Package Name: com.mycompany.training	
+
+
+9: Spring web apps - JSP
+Group: com.mycompany
+Artifact: spring-web-helloworld-jsp
+Name: spring-web-helloworld-jsp
+Description: Spring MVC HelloWorld Using JSP
+Package Name: com.mycompany.training	
+
+10: Spring web apps- Thymeleaf
+Group: com.mycompany
+Artifact: spring-web-helloworld-thymeleaf
+Name: spring-web-helloworld-thymeleaf
+Description: Spring MVC HelloWorld Using Thymeleaf
+Package Name: com.mycompany.training	
+
+11: springboot-rest-api-producer
+Group: com.mycompany
+Artifact: springboot-rest-api-producer
+Name: springboot-rest-api-producer
+Description: Demo project for Spring Restful Web Service
+Package Name: com.mycompany.training
+
+
