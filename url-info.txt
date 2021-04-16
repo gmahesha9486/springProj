@@ -5,3 +5,10 @@ http://websystique.com/spring-boot/spring-boot-rest-api-example/
 
 Mongo
 https://beginnersbook.com/category/mongodb-tutorial/
+
+
+Angular
+https://www.javaguides.net/2020/07/spring-boot-angular-10-crud-example-tutorial.html
+https://www.javaguides.net/2020/07/spring-boot-angular-10-crud-part-1-develop-springboot-crud-rest-apis.html
+https://www.javaguides.net/2020/07/spring-boot-angular-10-crud-part-2-create-angular-10-app.html
+https://www.javaguides.net/2020/07/spring-boot-angular-10-crud-part-2-create-angular-10-app.html
