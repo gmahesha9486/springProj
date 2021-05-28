@@ -3,3 +3,37 @@ git add *
 git status
 git commit -m 'spring proj2'
 git push
+
+
+git clone <url>
+cd <folderName>
+git checkout stage
+git pull origin stage
+
+git status
+git commit -m 'modified pom.xml file'
+git push origin stage
+
+
+
+
+git clone <url>
+git checkout my-branch
+git pull
+git checkout -b my-test-branch
+
+my-test-branch
+
+git checkout stage
+git pull origin stage
+
+
+git commit -m 'modified pom.xml file'
+git push origin stage
+
+
+
+git push --set-upstream origin my-test-branch
+
+----------
+ 
