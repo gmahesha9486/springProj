@@ -1,0 +1,342 @@
+SpringWebHelloworldThymeleafApplication.java
+
+package com.mycompany.training;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.mycompany.training.controller.TestController;
+import com.mycompany.training.model.Student;
+import com.mycompany.training.repository.StudentJdbcRepository;
+ 
+
+@SpringBootApplication
+@EnableTransactionManagement(proxyTargetClass=true)
+public class SpringWebHelloworldThymeleafApplication   {
+ 	
+	private static final Logger logger = LoggerFactory.getLogger(SpringWebHelloworldThymeleafApplication.class);
+	
+	public static void main(String[] args) {
+		
+	 	
+		ApplicationContext context = SpringApplication.run(SpringWebHelloworldThymeleafApplication.class, args);
+	
+		  logger.info("this is a info message");
+	      logger.warn("this is a warn message");
+	      logger.error("this is a error message");
+	      
+	      
+		TestController obj = (TestController)context.getBean("testController");
+		obj.doSomeStuff();
+		
+	}
+
+	
+}
+
+==============
+
+package com.mycompany.training;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class Bootstrap implements CommandLineRunner {
+
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	 
+	@Override
+	public void run(String... args) throws Exception {
+		
+		System.out.println(("StartApplication..."));
+		runJDBC();
+		
+	}
+	
+	public void runJDBC() {
+		
+		 System.out.println("Creating tables for testing...");
+
+	        jdbcTemplate.execute("DROP TABLE student IF EXISTS");
+	        jdbcTemplate.execute("CREATE TABLE student(" +
+	                "id integer not null, name VARCHAR(255),passport_number varchar(255) not null,primary key(id))");
+	        
+	        jdbcTemplate.execute("insert into student values(10001,'Mahesh', 'E1234567')");
+	        jdbcTemplate.execute("insert into student values(10002,'Manoj', 'A1234568')");
+	        
+	}
+
+}
+
+-----------------------
+
+package com.mycompany.training.repository;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.mycompany.training.model.Student;
+
+@Repository
+public class StudentJdbcRepository {
+
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	
+	public int getRecordCount() {
+		
+		int count = jdbcTemplate.queryForObject("select count(*) from student", Integer.class);
+		return count;
+		
+	}
+	
+	public Student findByID(int id) {
+		
+		return jdbcTemplate.queryForObject("select * from student where id = ?", new Object[]{id},
+				new BeanPropertyRowMapper<Student>(Student.class));	
+				
+	}
+	
+	public List<Student> findAll() {
+		return jdbcTemplate.query("select * from student", new StudentRowMapper());
+	}
+	
+	public int deleteById(long id) {
+		return jdbcTemplate.update("delete from student where id=?", new Object[] { id });
+	}
+
+	@Transactional
+	public int insert(Student student) {
+		 if(student.getName().equals("test")) { System.out.println(" Introducing some error ............");
+			return jdbcTemplate.update("insert into student (id, name) " + "values(?,  ?,?, ?)",
+					new Object[] { student.getId(), student.getName(), student.getPassportNumber() });
+		}else 
+			return jdbcTemplate.update("insert into student (id, name, passport_number) " + "values(?,  ?, ?)",
+				new Object[] { student.getId(), student.getName(), student.getPassportNumber() });
+	}
+
+	public int update(Student student) {
+		return jdbcTemplate.update("update student " + " set name = ?, passport_number = ? " + " where id = ?",
+				new Object[] { student.getName(), student.getPassportNumber(), student.getId() });
+	}
+
+	
+}
+
+---------------
+package com.mycompany.training.repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+import com.mycompany.training.model.Student;
+
+
+public class StudentRowMapper implements RowMapper<Student>  {
+
+	
+	@Override
+	public Student mapRow(ResultSet rs, int id) throws SQLException {
+		
+		Student student = new Student();
+		student.setId(rs.getLong("id"));
+		student.setName(rs.getString("name"));
+		student.setPassportNumber(rs.getString("passport_number"));
+		
+		return student;
+		
+	}
+
+}
+
+
+----------------------
+
+package com.mycompany.training.model;
+
+public class Student {
+
+	private Long id;
+	private String name;
+	private String passportNumber;
+
+	public Student() {
+		super();
+	}
+
+	public Student(Long id, String name, String passportNumber) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.passportNumber = passportNumber;
+	}
+
+	public Student(String name, String passportNumber) {
+		super();
+		this.name = name;
+		this.passportNumber = passportNumber;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassportNumber() {
+		return passportNumber;
+	}
+
+	public void setPassportNumber(String passportNumber) {
+		this.passportNumber = passportNumber;
+	}
+
+	@Override
+	public String toString() {
+		String details = "Name : "+this.name+" Id :"+this.id+" Passport no: "+this.passportNumber;
+		return  details;
+		
+	}
+}
+
+--------------------------
+package com.mycompany.training.controller;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.mycompany.training.model.Student;
+import com.mycompany.training.repository.StudentJdbcRepository; 
+
+
+@Controller
+public class TestController {
+
+	@Autowired
+	StudentJdbcRepository obj;
+	
+	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+	
+	@Transactional
+	 public void doSomeStuff() {
+		  	
+			System.out.println("Count = "+obj.getRecordCount());
+			logger.info("Count = {}", obj.getRecordCount());
+			
+			//Student student = obj.findByID(10002);
+			//System.out.println(student.getName());
+		
+//			System.out.println(obj.findAll());
+			
+			
+
+			//System.out.println("Update 10001 -> {}"+ obj.update(new Student(10001L, "Name-Updated", "New-Passport")));
+
+			//obj.deleteById(10002L);
+
+			logger.info("Inserting one record");
+			System.out.println("Inserting -> {}"+ obj.insert(new Student(10010L, "John", "A1234657")));
+			
+			logger.info("Inserting one more record");
+			System.out.println("Inserting -> {}"+ obj.insert(new Student(10011L, "Suresh","A1234657")));
+			 
+			logger.info("Display all records");
+			System.out.println("All users  -> {}"+ obj.findAll());
+			
+	 }
+	 
+	 
+	 @Transactional
+	 public void addRecords() {
+		 
+		
+	 }
+}
+
+----------------------
+package com.mycompany.training.model;
+
+public class Student {
+
+	private Long id;
+	private String name;
+	private String passportNumber;
+
+	public Student() {
+		super();
+	}
+
+	public Student(Long id, String name, String passportNumber) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.passportNumber = passportNumber;
+	}
+
+	public Student(String name, String passportNumber) {
+		super();
+		this.name = name;
+		this.passportNumber = passportNumber;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassportNumber() {
+		return passportNumber;
+	}
+
+	public void setPassportNumber(String passportNumber) {
+		this.passportNumber = passportNumber;
+	}
+
+	@Override
+	public String toString() {
+		String details = "Name : "+this.name+" Id :"+this.id+" Passport no: "+this.passportNumber;
+		return  details;
+		
+	}
+}
+
+-----------------------
