@@ -36,4 +36,4 @@ git push origin stage
 git push --set-upstream origin my-test-branch
 
 ----------
- 
+Use git add -A, this will include the deleted files 
